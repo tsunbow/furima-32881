@@ -17,7 +17,6 @@
 
 - has_many :items
 - has_many :purchases
-- has_one :address
 
 ## items テーブル
 
@@ -37,25 +36,22 @@
 
 - belongs_to :user
 - has_one :purchases
-- has_one :address
 
 ## address テーブル
 
-| Column       | Type       | Options                        |
-| ------------ | ---------- | ------------------------------ |
-| postal_code  | string     | null: false                    |
-| prefectures  | string     | null: false                    |
-| municipality | string     | null: false                    |
-| house_number | string     | null: false                    |
-| phone_number | string    | null: false                    |
-| user         | references | null: false, foreign_key: true |
-| item         | references | null: false, foreign_key: true |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | integer    | null: false                    |
+| prefectures   | integer    | null: false                    |
+| municipality  | string     | null: false                    |
+| house_number  | string     | null: false                    |
+| phone_number  | string     | null: false                    |
+| building_name | string     | null: false                    |
+| purchases_id  | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
-- has_one :purchases
+- belongs_to :purchases
 
 ## purchases テーブル
 
@@ -66,6 +62,4 @@
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
-- belongs_to :addres
+- has_one :addres
