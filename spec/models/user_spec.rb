@@ -38,11 +38,23 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid")
       end
-      it 'password_confirmationが空でpasswordと一致しない' do
+      it 'passwordが全角英数の混合' do
+        @user.password = "ａ123456"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid")
+      end
+      it 'password_confirmationが空' do
         @user.password_confirmation = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
+      it 'passwordとpassword_confirmationが一致しない' do
+        @user.password = 'a12345'
+        @user.password_confirmation = 'b67890'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+
       it 'last_nameが空' do
         @user.last_name = ''
         @user.valid?
