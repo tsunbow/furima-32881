@@ -10,7 +10,7 @@ class Item < ApplicationRecord
     validates :condition_id, numericality: { other_than: 1 } 
     validates :cost_id, numericality: { other_than: 1 } 
     validates :area_id, numericality: { other_than: 1 } 
-    validates :date_id, numericality: { other_than: 1 } 
+    validates :datee_id, numericality: { other_than: 1 } 
   end
 
   validates :price, presence: true, numericality: { only_integer: true,
