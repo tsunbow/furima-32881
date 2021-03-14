@@ -26,33 +26,33 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idが空（---）のとき' do
-        @item.category_id = ''
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
       it 'condition_idが空（---）のとき' do
-        @item.condition_id = ''
+        @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition can't be blank")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
 
       it 'cost_idが空（---）のとき' do
-        @item.cost_id = ''
+        @item.cost_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Cost can't be blank")
+        expect(@item.errors.full_messages).to include("Cost must be other than 1")
       end
 
       it 'area_idが空（---）のとき' do
-        @item.area_id = ''
+        @item.area_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Area can't be blank")
+        expect(@item.errors.full_messages).to include("Area must be other than 1")
       end
 
-      it 'datee_idが空（---のとき' do
-        @item.datee_id = ''
+      it 'datee_idが空（---）のとき' do
+        @item.datee_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Datee can't be blank")
+        expect(@item.errors.full_messages).to include("Datee must be other than 1")
       end
 
       it 'priceが空' do
@@ -67,20 +67,32 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
 
-      it '販売価格が半角数字ではない' do
+      it '販売価格が全角数字' do
         @item.price = '５００'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
+      it '販売価格が半角英数混合' do
+        @item.price = '５００1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it '販売価格が半角英字のみ' do
+        @item.price = 'abc'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
       it '出品金額が300円未満' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than 299')
       end
 
       it '出品金額が9,999,999円超過' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than 10000000')
       end

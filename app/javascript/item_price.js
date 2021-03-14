@@ -10,6 +10,5 @@ window.addEventListener('load', () => {
 
     const salesProfit = document.getElementById("profit");
     salesProfit.innerHTML = (Math.floor(inputValue - addTaxDom.innerHTML));
-    console.log(salesProfit);
   });
 });
