@@ -31,17 +31,17 @@ RSpec.describe User, type: :model do
       it 'passwordが英字のみ' do
         @user.password = 'aaaaaa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'passwordが数字のみ' do
         @user.password = '000000'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'passwordが全角英数の混合' do
-        @user.password = "ａ123456"
+        @user.password = 'ａ123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is invalid")
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'password_confirmationが空' do
         @user.password_confirmation = ''
@@ -83,22 +83,22 @@ RSpec.describe User, type: :model do
       it 'last_nameが全角では無い' do
         @user.last_name = 'ｱｲｳｴｵ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name is invalid")
+        expect(@user.errors.full_messages).to include('Last name is invalid')
       end
       it 'first_nameが全角では無い' do
         @user.first_name = 'ｱｲｳｴｵ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name is invalid")
+        expect(@user.errors.full_messages).to include('First name is invalid')
       end
       it 'last_name_kanaが全角カタカナでは無い' do
         @user.last_name_kana = 'あいうえお'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana is invalid")
+        expect(@user.errors.full_messages).to include('Last name kana is invalid')
       end
       it 'first_name_kanaが全角カタカナでは無い' do
         @user.first_name_kana = 'あいうえお'
         @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana is invalid")
+        expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
 
       it 'emailが重複している' do
