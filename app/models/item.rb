@@ -4,12 +4,12 @@ class Item < ApplicationRecord
     validates :item_name
     validates :text
   end
-  with_options presence: true do
-    validates :category_id, numericality: { other_than: 1 }
-    validates :condition_id, numericality: { other_than: 1 }
-    validates :cost_id, numericality: { other_than: 1 }
-    validates :area_id, numericality: { other_than: 1 }
-    validates :datee_id, numericality: { other_than: 1 }
+  with_options presence: true, numericality: { other_than: 1 } do
+    validates :category_id
+    validates :condition_id
+    validates :cost_id
+    validates :area_id
+    validates :datee_id
   end
 
   validates :price, presence: true, numericality: { only_integer: true,
