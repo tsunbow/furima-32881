@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update]
-  before_action :authenticate_user!, only: [:new, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :redirect_root, only: [:edit, :update]
   
 
@@ -28,7 +28,6 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.save
     if @item.update(item_params)
       redirect_to item_path
     else
