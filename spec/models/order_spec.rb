@@ -12,7 +12,7 @@ RSpec.describe Order, type: :model do
       end
 
       context '商品出品できない時' do
-        it "tokenが空では登録できないこと" do
+        it 'tokenが空では登録できないこと' do
           @order.token = nil
           @order.valid?
           expect(@order.errors.full_messages).to include("Token can't be blank")
@@ -20,22 +20,22 @@ RSpec.describe Order, type: :model do
         it 'postal_codeが空' do
           @order.postal_code = ''
           @order.valid?
-          expect(@order.errors.full_messages).to include("Postal code is invalid")
+          expect(@order.errors.full_messages).to include('Postal code is invalid')
         end
         it 'postal_codeが半角数字でない' do
           @order.postal_code = '１２３-４５６７'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Postal code is invalid")
+          expect(@order.errors.full_messages).to include('Postal code is invalid')
         end
         it 'postal_codeにハイフンがない' do
           @order.postal_code = '1234567'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Postal code is invalid")
+          expect(@order.errors.full_messages).to include('Postal code is invalid')
         end
         it 'area-idが空（---）' do
           @order.area_id = 1
           @order.valid?
-          expect(@order.errors.full_messages).to include("Area must be other than 1")
+          expect(@order.errors.full_messages).to include('Area must be other than 1')
         end
         it 'municipalityが空' do
           @order.municipality = ''
@@ -55,14 +55,13 @@ RSpec.describe Order, type: :model do
         it 'phone_numberが半角数字でない' do
           @order.phone_number = '０９０１２３４５６７８'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Phone number is not a number")
+          expect(@order.errors.full_messages).to include('Phone number is not a number')
         end
         it 'phone_numberにハイフンがついている' do
           @order.phone_number = '090-1234-5678'
           @order.valid?
-          expect(@order.errors.full_messages).to include("Phone number is not a number")
+          expect(@order.errors.full_messages).to include('Phone number is not a number')
         end
-      
       end
     end
   end

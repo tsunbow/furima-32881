@@ -1,5 +1,4 @@
 class Order
-
   include ActiveModel::Model
   attr_accessor :user_id, :item_id, :postal_code, :area_id, :municipality, :house_number, :phone_number, :building_name, :token
 
@@ -12,10 +11,9 @@ class Order
   end
   validates :token, presence: true
 
-
   def save
     Purchase.create(user_id: user_id, item_id: item_id)
-    Address.create(postal_code: postal_code, area_id: area_id, municipality: municipality, house_number: house_number, phone_number: phone_number, building_name: building_name, user_id: user_id)
+    Address.create(postal_code: postal_code, area_id: area_id, municipality: municipality, house_number: house_number,
+                   phone_number: phone_number, building_name: building_name, user_id: user_id)
   end
-
 end
