@@ -1,22 +1,13 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :set_order, only: [:index, :create]
+  before_action :set_user, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :create]
 
   def index
-    @order = Order.new
-    @item = Item.find(params[:item_id])
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    elsif @item.purchase.present?
-      redirect_to root_path
-    end
-  end
-
-  def new
     @order = Order.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order = Order.new(order_params)
     if @order.valid?
       pay_item
@@ -31,7 +22,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:postal_code, :area_id, :municipality, :house_number, :phone_number, :building_name).merge(
-      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token], purchase_id: params[:purchase_id]
     )
   end
 
@@ -42,5 +33,17 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+   
+  def set_order
+    @item = Item.find(params[:item_id])
+  end
+
+  def set_user
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    elsif @item.purchase.present?
+      redirect_to root_path
+    end
   end
 end
