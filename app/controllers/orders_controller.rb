@@ -41,9 +41,9 @@ class OrdersController < ApplicationController
 
   def set_user
     if current_user.id == @item.user_id 
-      unless @item.purchase.blank?
+       redirect_to root_path
+     elsif @item.purchase.present?
         redirect_to root_path
       end
    end
-  end
 end
