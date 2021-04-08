@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:index, :create]
-  before_action :set_user, only: [:index, :create]
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_user, only: [:index, :create]
 
   def index
     @order = Order.new
@@ -40,8 +40,10 @@ class OrdersController < ApplicationController
   end
 
   def set_user
-    if current_user.id == @item.user_id && @item.purchase.present?
-      redirect_to root_path
-    end
+    if current_user.id == @item.user_id 
+      unless @item.purchase.blank?
+        redirect_to root_path
+      end
+   end
   end
 end
